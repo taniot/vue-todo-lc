@@ -37,6 +37,7 @@
       <!-- Main -->
       <main>
         <div class="container">
+          <!-- Cerca un task -->
           <div class="row">
             <div class="col col-md-7 mx-auto">
               <div class="mb-2">
@@ -53,6 +54,9 @@
               </div>
             </div>
           </div>
+          <!-- /Cerca un task -->
+          <!-- Inserisci un task -->
+
           <div class="row">
             <div class="col col-md-7 mx-auto">
               <div class="mb-2">
@@ -67,6 +71,7 @@
                   v-model="newTask"
                   @keyup.enter="addTask"
                 />
+                <!-- button nuovo task -->
                 <button
                   class="btn btn-primary"
                   type="button"
@@ -78,26 +83,36 @@
               </div>
             </div>
           </div>
-
+          <!-- /Inserisci un task -->
+          <!-- Inserisci un task -->
           <div class="row">
             <div class="col col-md-7 mx-auto">
               <ul class="list-group" v-if="filteredTask().length > 0">
                 <li
                   v-for="(task, index) in filteredTask()"
                   class="list-group-item d-flex justify-content-between align-items-center"
+                  @click="doneTask(index)"
+                  :class="{'task-done': task.done}"
                 >
-                  <div>{{index}} - {{ task }}</div>
+                  <div
+                    role="button"
+                    :class="{'text-decoration-line-through': task.done}"
+                  >
+                    {{index}} - {{ task.text }}
+                  </div>
                   <i
                     role="button"
                     class="fa-solid fa-trash"
-                    @click="deleteTask(index)"
+                    @click.stop="deleteTask(index)"
                   ></i>
                 </li>
               </ul>
+              <!-- task non disponibili-->
               <div class="alert alert-info" role="alert" v-else>
                 Non ci sono task disponibili
               </div>
             </div>
+            <!-- Inserisci un task -->
           </div>
         </div>
       </main>
